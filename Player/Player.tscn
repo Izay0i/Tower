@@ -1,0 +1,427 @@
+[gd_scene load_steps=41 format=2]
+
+[ext_resource path="res://Texture/Sprite/Player.png" type="Texture" id=1]
+[ext_resource path="res://Script/Player.gd" type="Script" id=2]
+[ext_resource path="res://GUI/HUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://SFX/ow.ogg" type="AudioStream" id=4]
+[ext_resource path="res://SFX/weapon_swing.ogg" type="AudioStream" id=5]
+[ext_resource path="res://SFX/run.ogg" type="AudioStream" id=6]
+[ext_resource path="res://SFX/jump.ogg" type="AudioStream" id=7]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 48, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 64, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 80, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 96, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 112, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 128, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 16, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": false,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "Run",
+"speed": 6.0
+}, {
+"frames": [ SubResource( 13 ) ],
+"loop": false,
+"name": "Shoot",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"loop": true,
+"name": "Melee",
+"speed": 12.0
+}, {
+"frames": [ SubResource( 14 ) ],
+"loop": false,
+"name": "Jump",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=6]
+resource_name = "Idle"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "idle" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "Jump"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Jump" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "Melee"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Melee" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 4, 5 ]
+}
+
+[sub_resource type="Animation" id=24]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Scythe/Area2D/ScytheHitbox:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "Run"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Run" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "Shoot"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Shoot" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 6.75, 12 )
+
+[sub_resource type="AnimationNodeAnimation" id=28]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=29]
+animation = "Jump"
+
+[sub_resource type="AnimationNodeAnimation" id=25]
+animation = "Melee"
+
+[sub_resource type="AnimationNodeAnimation" id=30]
+animation = "Run"
+
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "Shoot"
+
+[sub_resource type="AnimationNodeTransition" id=32]
+input_count = 2
+input_0/name = "Ground"
+input_0/auto_advance = false
+input_1/name = "Air"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeTransition" id=27]
+input_count = 2
+input_0/name = "Shoot"
+input_0/auto_advance = false
+input_1/name = "Melee"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeTimeScale" id=35]
+
+[sub_resource type="AnimationNodeTransition" id=31]
+input_count = 2
+input_0/name = "Idle"
+input_0/auto_advance = false
+input_1/name = "Run"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeTimeScale" id=34]
+
+[sub_resource type="AnimationNodeTransition" id=33]
+input_count = 2
+input_0/name = "Movement"
+input_0/auto_advance = false
+input_1/name = "Attack"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeBlendTree" id=9]
+graph_offset = Vector2( 161.95, 285.26 )
+nodes/Idle/node = SubResource( 28 )
+nodes/Idle/position = Vector2( 400, -200 )
+nodes/Jump/node = SubResource( 29 )
+nodes/Jump/position = Vector2( 660, 0 )
+nodes/Melee/node = SubResource( 25 )
+nodes/Melee/position = Vector2( 600, 340 )
+nodes/Run/node = SubResource( 30 )
+nodes/Run/position = Vector2( 220, -60 )
+nodes/Shoot/node = SubResource( 26 )
+nodes/Shoot/position = Vector2( 800, 200 )
+nodes/air_transition/node = SubResource( 32 )
+nodes/air_transition/position = Vector2( 1000, 0 )
+nodes/attack_transition/node = SubResource( 27 )
+nodes/attack_transition/position = Vector2( 1000, 200 )
+nodes/melee_scale/node = SubResource( 35 )
+nodes/melee_scale/position = Vector2( 800, 340 )
+nodes/movement_transition/node = SubResource( 31 )
+nodes/movement_transition/position = Vector2( 600, -200 )
+nodes/output/position = Vector2( 1400, 0 )
+nodes/run_scale/node = SubResource( 34 )
+nodes/run_scale/position = Vector2( 400, -60 )
+nodes/state/node = SubResource( 33 )
+nodes/state/position = Vector2( 1200, 0 )
+node_connections = [ "state", 0, "air_transition", "state", 1, "attack_transition", "output", 0, "state", "run_scale", 0, "Run", "attack_transition", 0, "Shoot", "attack_transition", 1, "melee_scale", "melee_scale", 0, "Melee", "air_transition", 0, "movement_transition", "air_transition", 1, "Jump", "movement_transition", 0, "Idle", "movement_transition", 1, "run_scale" ]
+
+[sub_resource type="RectangleShape2D" id=36]
+extents = Vector2( 20, 24 )
+
+[sub_resource type="RectangleShape2D" id=37]
+extents = Vector2( 7, 12 )
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 2, 2 )
+frames = SubResource( 2 )
+animation = "idle"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite"]
+anims/Idle = SubResource( 6 )
+anims/Jump = SubResource( 21 )
+anims/Melee = SubResource( 23 )
+anims/RESET = SubResource( 24 )
+anims/Run = SubResource( 12 )
+anims/Shoot = SubResource( 22 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 4 )
+shape = SubResource( 3 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.6, 0.6 )
+limit_left = 0
+limit_top = 0
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 9 )
+anim_player = NodePath("../AnimatedSprite/AnimationPlayer")
+active = true
+parameters/air_transition/current = 0
+parameters/attack_transition/current = 1
+parameters/melee_scale/scale = 2.0
+parameters/movement_transition/current = 0
+parameters/run_scale/scale = 4.0
+parameters/state/current = 0
+
+[node name="Scythe" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Area2D" type="Area2D" parent="Scythe"]
+collision_mask = 3
+
+[node name="ScytheHitbox" type="CollisionShape2D" parent="Scythe/Area2D"]
+position = Vector2( 12, 0 )
+shape = SubResource( 36 )
+
+[node name="Body" type="Area2D" parent="."]
+collision_mask = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+position = Vector2( 0, 4 )
+shape = SubResource( 37 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource( 3 )]
+
+[node name="InvulnerableTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="AttackCooldownTimer" type="Timer" parent="."]
+wait_time = 0.45
+one_shot = true
+
+[node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+
+[node name="WeaponSwingSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+
+[node name="RunSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+
+[node name="JumpSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+
+[node name="FireballPosition" type="Position2D" parent="."]
+position = Vector2( 17, 6 )
+
+[connection signal="body_entered" from="Scythe/Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="area_entered" from="Body" to="." method="_on_Body_area_entered"]
+[connection signal="body_entered" from="Body" to="." method="_on_Body_body_entered"]

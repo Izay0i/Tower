@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/rune.ogg-700b6da9012e14ad1ff954cd847a8c83.oggstr"
+
+[deps]
+
+source_file="res://SFX/rune.ogg"
+dest_files=[ "res://.import/rune.ogg-700b6da9012e14ad1ff954cd847a8c83.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/swap_boss_cry.ogg-b0b169d052b119867d70d2d8650bac14.oggstr"
+
+[deps]
+
+source_file="res://SFX/swap_boss_cry.ogg"
+dest_files=[ "res://.import/swap_boss_cry.ogg-b0b169d052b119867d70d2d8650bac14.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

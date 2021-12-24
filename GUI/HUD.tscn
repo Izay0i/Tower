@@ -1,0 +1,116 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Texture/Sprite/Heart.png" type="Texture" id=1]
+[ext_resource path="res://Texture/Sprite/Label.png" type="Texture" id=2]
+[ext_resource path="res://Script/HUD.gd" type="Script" id=3]
+
+[node name="HUD" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 20.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_right = 208.0
+margin_bottom = 40.0
+
+[node name="Bars" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_right = 204.0
+margin_bottom = 40.0
+
+[node name="Bar" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Bars"]
+margin_right = 204.0
+margin_bottom = 40.0
+
+[node name="Count" type="MarginContainer" parent="MarginContainer/HBoxContainer/Bars/Bar"]
+margin_right = 100.0
+margin_bottom = 40.0
+
+[node name="Background" type="NinePatchRect" parent="MarginContainer/HBoxContainer/Bars/Bar/Count"]
+margin_right = 100.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+texture = ExtResource( 2 )
+
+[node name="Title" type="TextureRect" parent="MarginContainer/HBoxContainer/Bars/Bar/Count/Background"]
+margin_left = 4.0
+margin_top = -4.0
+margin_right = 24.0
+margin_bottom = 21.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Number" type="Label" parent="MarginContainer/HBoxContainer/Bars/Bar/Count/Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 44.0
+margin_top = 4.0
+margin_right = -6.0
+margin_bottom = 4.0
+text = "10
+"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="MarginContainer" parent="MarginContainer/HBoxContainer/Bars/Bar"]
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="NinePatchRect" parent="MarginContainer/HBoxContainer/Bars/Bar/Score"]
+margin_right = 100.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+texture = ExtResource( 2 )
+
+[node name="Text" type="Label" parent="MarginContainer/HBoxContainer/Bars/Bar/Score/Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = -4.0
+margin_right = -46.0
+margin_bottom = -4.0
+text = "SCORE"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/Bars/Bar/Score/Background"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -56.0
+margin_top = -16.0
+margin_right = -8.0
+margin_bottom = 15.0
+text = "10
+"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Counters" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_left = 208.0
+margin_right = 208.0
+margin_bottom = 40.0

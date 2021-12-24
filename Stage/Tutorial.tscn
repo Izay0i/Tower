@@ -1,0 +1,188 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Tilemap Scene/SwampTile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://BGObject/Sign.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Enemy/Frog.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Script/Tutorial.gd" type="Script" id=5]
+[ext_resource path="res://Item/Coin.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Song/forest_start.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Song/forest_loop.ogg" type="AudioStream" id=8]
+[ext_resource path="res://BGObject/Flag.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Enemy/Skeleton.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Texture/Tileset/free-swamp-game-tileset-pixel-art/2 Background/Layers/1.png" type="Texture" id=11]
+[ext_resource path="res://Texture/Tileset/free-swamp-game-tileset-pixel-art/2 Background/Layers/2.png" type="Texture" id=12]
+[ext_resource path="res://Texture/Tileset/free-swamp-game-tileset-pixel-art/2 Background/Layers/5.png" type="Texture" id=13]
+[ext_resource path="res://Texture/Tileset/free-swamp-game-tileset-pixel-art/2 Background/Layers/3.png" type="Texture" id=14]
+[ext_resource path="res://Texture/Tileset/free-swamp-game-tileset-pixel-art/2 Background/Layers/4.png" type="Texture" id=15]
+[ext_resource path="res://Enemy/Golem.tscn" type="PackedScene" id=16]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 10 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32, 10 )
+
+[node name="World" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 576, 125 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 11 )
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.1, 0 )
+motion_mirroring = Vector2( 576, 324 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource( 12 )
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.2, 0 )
+motion_mirroring = Vector2( 576, 324 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+texture = ExtResource( 14 )
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.3, 0 )
+motion_mirroring = Vector2( 576, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+texture = ExtResource( 15 )
+centered = false
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.4, 0 )
+motion_mirroring = Vector2( 576, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer5"]
+texture = ExtResource( 13 )
+centered = false
+
+[node name="SwampTileset" parent="." instance=ExtResource( 1 )]
+tile_data = PoolIntArray( 65533, 1, 0, 65534, 0, 131073, 65535, 0, 131073, 0, 0, 131073, 1, 0, 131073, 2, 0, 131073, 3, 0, 131073, 4, 0, 131073, 5, 1, 2, 6, 0, 65537, 7, 0, 65537, 8, 0, 65537, 9, 0, 65537, 10, 0, 65537, 11, 0, 65537, 12, 0, 65537, 13, 0, 65537, 14, 0, 65537, 15, 0, 65537, 16, 0, 65537, 17, 0, 65537, 18, 0, 65537, 19, 0, 65537, 20, 0, 65537, 21, 0, 65537, 22, 0, 65537, 23, 0, 65537, 24, 0, 65537, 25, 0, 65537, 26, 0, 65537, 27, 0, 65537, 28, 0, 65537, 131069, 0, 65538, 65541, 0, 65536, 65542, 0, 65537, 65543, 0, 65537, 65544, 0, 65537, 65545, 0, 65537, 65546, 0, 65537, 65547, 0, 65537, 65548, 1, 65537, 65549, 0, 65537, 65550, 1, 0, 65551, 0, 131073, 65552, 0, 131073, 65553, 1, 2, 65554, 0, 65537, 65555, 0, 65537, 65556, 0, 65537, 65557, 0, 65537, 65558, 0, 65537, 65559, 0, 65537, 65560, 0, 65537, 65561, 0, 65537, 65562, 0, 65537, 65563, 0, 65537, 65564, 0, 65537, 196605, 0, 65538, 131077, 0, 131072, 131078, 0, 131073, 131079, 1, 2, 131080, 0, 65537, 131081, 0, 65537, 131082, 0, 65537, 131083, 0, 65537, 131084, 0, 65537, 131085, 1, 0, 131086, 0, 131074, 131089, 0, 131072, 131090, 1, 2, 131091, 0, 65537, 131092, 0, 65537, 131093, 0, 65537, 131094, 0, 65537, 131095, 0, 65537, 131096, 0, 65537, 131097, 0, 65537, 131098, 0, 65537, 131099, 0, 65537, 131100, 0, 65537, 262141, 1, 131072, 262142, 0, 1, 262143, 0, 1, 196608, 0, 1, 196609, 0, 1, 196610, 0, 1, 196611, 9, 65537, 196615, 0, 65536, 196616, 0, 65537, 196617, 1, 65537, 196618, 0, 65537, 196619, 0, 65537, 196620, 1, 0, 196621, 0, 131074, 196626, 0, 131072, 196627, 1, 2, 196628, 0, 65537, 196629, 0, 65537, 196630, 0, 65537, 196631, 0, 65537, 196632, 0, 65537, 196633, 0, 65537, 196634, 0, 65537, 196635, 0, 65537, 196636, 0, 65537, 262144, 0, 65537, 262145, 1, 0, 262146, 0, 131073, 262147, 0, 131074, 262151, 0, 65536, 262152, 0, 65537, 262153, 0, 65537, 262154, 0, 65537, 262155, 0, 65537, 262156, 0, 65538, 262163, 0, 65536, 262164, 0, 65537, 262165, 0, 65537, 262166, 0, 65537, 262167, 0, 65537, 262168, 0, 65537, 262169, 0, 65537, 262170, 0, 65537, 262171, 0, 65537, 262172, 0, 65537, 327680, 1, 65537, 327681, 0, 65538, 327686, 6, 0, 327687, 0, 65536, 327688, 0, 65537, 327689, 0, 65537, 327690, 0, 65537, 327691, 0, 65537, 327692, 0, 65538, 327699, 0, 65536, 327700, 0, 65537, 327701, 0, 65537, 327702, 0, 65537, 327703, 0, 65537, 327704, 0, 65537, 327705, 0, 65537, 327706, 0, 65537, 327707, 0, 65537, 327708, 0, 65537, 393216, 0, 65537, 393217, 0, 65538, 393220, 9, 65536, 393221, 0, 1, 393222, 0, 1, 393223, 1, 131074, 393224, 0, 65537, 393225, 0, 65537, 393226, 1, 65537, 393227, 0, 65537, 393228, 8, 65536, 393229, 4, 1, 393230, 4, 2, 393235, 0, 65536, 393236, 0, 65537, 393237, 0, 65537, 393238, 0, 65537, 393239, 0, 65537, 393240, 0, 65537, 393241, 0, 65537, 393242, 0, 65537, 393243, 0, 65537, 393244, 0, 65537, 458752, 0, 65537, 458753, 0, 65538, 458756, 0, 131072, 458757, 1, 2, 458758, 0, 65537, 458759, 0, 65537, 458760, 0, 65537, 458761, 0, 65537, 458762, 0, 65537, 458763, 1, 0, 458764, 0, 131074, 458769, 0, 0, 458770, 0, 1, 458771, 1, 131074, 458772, 0, 65537, 458773, 0, 65537, 458774, 0, 65537, 458775, 0, 65537, 458776, 0, 65537, 458777, 0, 65537, 458778, 0, 65537, 458779, 0, 65537, 458780, 0, 65537, 524288, 0, 65537, 524289, 0, 65538, 524293, 0, 65536, 524294, 0, 65537, 524295, 0, 65537, 524296, 1, 0, 524297, 0, 131073, 524298, 0, 131073, 524299, 0, 131074, 524304, 0, 0, 524305, 1, 131074, 524306, 0, 65537, 524307, 1, 65537, 524308, 0, 65537, 524309, 0, 65537, 524310, 0, 65537, 524311, 0, 65537, 524312, 0, 65537, 524313, 0, 65537, 524314, 0, 65537, 524315, 1, 65537, 524316, 0, 65537, 589824, 0, 65537, 589825, 0, 65538, 589829, 0, 131072, 589830, 0, 131073, 589831, 0, 131073, 589832, 0, 131074, 589839, 0, 0, 589840, 1, 131074, 589841, 0, 65537, 589842, 0, 65537, 589843, 0, 65537, 589844, 1, 0, 589845, 0, 131073, 589846, 0, 131073, 589847, 0, 131073, 589848, 0, 131073, 589849, 0, 131073, 589850, 0, 131073, 589851, 0, 131073, 589852, 1, 2, 655360, 0, 65537, 655361, 1, 131072, 655362, 0, 1, 655363, 0, 2, 655373, 4, 0, 655374, 4, 1, 655375, 5, 65536, 655376, 0, 131073, 655377, 0, 131073, 655378, 0, 131073, 655379, 0, 131073, 655380, 0, 131074, 655388, 0, 65536, 720896, 0, 65537, 720897, 0, 65537, 720898, 0, 65537, 720899, 0, 65538, 720905, 0, 0, 720906, 0, 1, 720907, 0, 2, 720924, 0, 65536, 786432, 1, 65537, 786433, 0, 65537, 786434, 0, 65537, 786435, 1, 131072, 786436, 0, 1, 786437, 0, 1, 786438, 3, 0, 786439, 0, 1, 786440, 0, 1, 786441, 1, 131074, 786442, 0, 65537, 786443, 0, 65538, 786447, 0, 0, 786448, 0, 1, 786449, 0, 1, 786450, 0, 1, 786451, 0, 1, 786452, 0, 2, 786453, 6, 0, 786460, 0, 65536, 851968, 0, 65537, 851969, 0, 65537, 851970, 0, 65537, 851971, 0, 65537, 851972, 0, 65537, 851973, 0, 65537, 851974, 0, 65537, 851975, 0, 65537, 851976, 1, 65537, 851977, 0, 65537, 851978, 0, 65537, 851979, 1, 131072, 851980, 0, 1, 851981, 0, 1, 851982, 0, 1, 851983, 1, 131074, 851984, 0, 65537, 851985, 0, 65537, 851986, 1, 65537, 851987, 0, 65537, 851988, 1, 131072, 851989, 0, 1, 851990, 0, 1, 851991, 3, 65536, 851992, 3, 262144, 851993, 0, 1, 851994, 0, 1, 851995, 0, 1, 851996, 1, 131074 )
+
+[node name="Signs" type="Node2D" parent="."]
+
+[node name="Sign" parent="Signs" instance=ExtResource( 3 )]
+position = Vector2( 72, 80 )
+animation = "D"
+
+[node name="Sign2" parent="Signs" instance=ExtResource( 3 )]
+position = Vector2( 208, 144 )
+animation = "A"
+
+[node name="Sign3" parent="Signs" instance=ExtResource( 3 )]
+position = Vector2( 120, 304 )
+
+[node name="Sign4" parent="Signs" instance=ExtResource( 3 )]
+position = Vector2( 360, 336 )
+animation = "J"
+
+[node name="Sign5" parent="Signs" instance=ExtResource( 3 )]
+position = Vector2( 488, 368 )
+animation = "K"
+
+[node name="Flags" type="Node2D" parent="."]
+
+[node name="Flag" parent="Flags" instance=ExtResource( 9 )]
+position = Vector2( 328, 328 )
+
+[node name="Flag2" parent="Flags" instance=ExtResource( 9 )]
+position = Vector2( 592, 200 )
+frame = 2
+
+[node name="Items" type="Node2D" parent="."]
+position = Vector2( 432, 304 )
+
+[node name="Coin5" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 0, -144 )
+
+[node name="Coin4" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 32, -144 )
+
+[node name="Coin3" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 96, -64 )
+
+[node name="Coin" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( -472, -224 )
+
+[node name="Coin6" parent="Items" instance=ExtResource( 6 )]
+
+[node name="Coin2" parent="Items" instance=ExtResource( 6 )]
+position = Vector2( 64, -32 )
+
+[node name="Enemies" type="Node2D" parent="."]
+position = Vector2( 256, 368 )
+
+[node name="Frog" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 208, 32 )
+
+[node name="Skeleton" parent="Enemies" instance=ExtResource( 10 )]
+position = Vector2( 16, -8 )
+
+[node name="Golem" parent="Enemies" instance=ExtResource( 16 )]
+position = Vector2( 624, 32 )
+
+[node name="Water" type="Node2D" parent="."]
+
+[node name="WaterBody" type="Area2D" parent="Water"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Water/WaterBody"]
+position = Vector2( 208, 400 )
+shape = SubResource( 1 )
+
+[node name="WideWaterBody" type="Area2D" parent="Water"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Water/WideWaterBody"]
+position = Vector2( 768, 432 )
+shape = SubResource( 2 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 16, 80 )
+
+[node name="Camera2D" parent="Player" index="2"]
+limit_right = 928
+limit_bottom = 448
+
+[node name="ForestStart" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+autoplay = true
+
+[node name="ForestLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[connection signal="body_entered" from="Water/WaterBody" to="." method="_on_WaterBody_body_entered"]
+[connection signal="body_entered" from="Water/WideWaterBody" to="." method="_on_WideWaterBody_body_entered"]
+[connection signal="finished" from="ForestStart" to="." method="_on_ForestStart_finished"]
+
+[editable path="Player"]

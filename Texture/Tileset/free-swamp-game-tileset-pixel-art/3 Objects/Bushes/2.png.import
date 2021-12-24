@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/2.png-e41c1c9b920ed9033c64f10dbd4477f5.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://Texture/Tileset/free-swamp-game-tileset-pixel-art/3 Objects/Bushes/2.png"
+dest_files=[ "res://.import/2.png-e41c1c9b920ed9033c64f10dbd4477f5.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0
