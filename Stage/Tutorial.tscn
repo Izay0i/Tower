@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Tilemap Scene/SwampTile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -16,12 +16,19 @@
 [ext_resource path="res://Texture/Tileset/free-swamp-game-tileset-pixel-art/2 Background/Layers/3.png" type="Texture" id=14]
 [ext_resource path="res://Texture/Tileset/free-swamp-game-tileset-pixel-art/2 Background/Layers/4.png" type="Texture" id=15]
 [ext_resource path="res://Enemy/Golem.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Shader/flash_shader.gdshader" type="Shader" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 10 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32, 10 )
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = ExtResource( 17 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_modifier = 0.0
 
 [node name="World" type="Node2D"]
 script = ExtResource( 5 )
@@ -169,6 +176,9 @@ shape = SubResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 16, 80 )
+
+[node name="AnimatedSprite" parent="Player" index="0"]
+material = SubResource( 3 )
 
 [node name="Camera2D" parent="Player" index="2"]
 limit_right = 928

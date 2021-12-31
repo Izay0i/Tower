@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/santa_loop.ogg-aa55786a8852564227e63b8350da5083.oggstr"
+
+[deps]
+
+source_file="res://Song/santa_loop.ogg"
+dest_files=[ "res://.import/santa_loop.ogg-aa55786a8852564227e63b8350da5083.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

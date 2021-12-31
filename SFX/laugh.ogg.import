@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/laugh.ogg-64bb0380e884f55e71cd83ae00947e2c.oggstr"
+
+[deps]
+
+source_file="res://SFX/laugh.ogg"
+dest_files=[ "res://.import/laugh.ogg-64bb0380e884f55e71cd83ae00947e2c.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

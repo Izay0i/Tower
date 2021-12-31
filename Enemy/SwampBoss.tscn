@@ -1,18 +1,18 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Texture/Sprite/Swamp Boss.png" type="Texture" id=1]
 [ext_resource path="res://Script/SwampBoss.gd" type="Script" id=2]
 [ext_resource path="res://SFX/pop.ogg" type="AudioStream" id=3]
 [ext_resource path="res://SFX/swap_boss_cry.ogg" type="AudioStream" id=4]
 [ext_resource path="res://SFX/explosion.ogg" type="AudioStream" id=5]
+[ext_resource path="res://SFX/gas.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Shader/flash_shader.gdshader" type="Shader" id=7]
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 64, 64 )
+[sub_resource type="ShaderMaterial" id=25]
+resource_local_to_scene = true
+shader = ExtResource( 7 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_modifier = 0.0
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
@@ -22,21 +22,29 @@ region = Rect2( 0, 64, 64, 64 )
 atlas = ExtResource( 1 )
 region = Rect2( 64, 64, 64, 64 )
 
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 64, 64 )
+
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 128, 64, 64 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 2.0
-}, {
 "frames": [ SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "Attack",
 "speed": 4.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 2.0
 }, {
 "frames": [ SubResource( 7 ) ],
 "loop": false,
@@ -101,6 +109,50 @@ tracks/1/keys = {
 "values": [ 0 ]
 }
 
+[sub_resource type="Animation" id=26]
+resource_name = "Flash"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "Gas"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Gas/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Gas/CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -80 ), Vector2( 0, -52 ), Vector2( 0, -32 ), Vector2( 0, -4 ) ]
+}
+
 [sub_resource type="Animation" id=9]
 resource_name = "Idle"
 loop = true
@@ -154,6 +206,42 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Gas/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../Gas/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -80 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:material:shader_param/flash_modifier")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
 }
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -234,6 +322,7 @@ collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 25 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 4 )
 animation = "Idle"
@@ -241,6 +330,8 @@ animation = "Idle"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite"]
 anims/Attack = SubResource( 11 )
 anims/Explode = SubResource( 12 )
+anims/Flash = SubResource( 26 )
+anims/Gas = SubResource( 24 )
 anims/Idle = SubResource( 9 )
 anims/RESET = SubResource( 10 )
 
@@ -250,7 +341,7 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="IntroTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 1.5
 one_shot = true
 
 [node name="DeathTimer" type="Timer" parent="."]
@@ -258,11 +349,14 @@ wait_time = 0.5
 one_shot = true
 
 [node name="IdleTimer" type="Timer" parent="."]
-wait_time = 6.0
+wait_time = 4.0
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
+
+[node name="InvulnerableTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="Spawner" type="Position2D" parent="."]
@@ -274,6 +368,9 @@ stream = ExtResource( 3 )
 
 [node name="Cry" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
+
+[node name="GasSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
 
 [node name="ExplodeSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
@@ -288,15 +385,14 @@ parameters/state/current = 0
 [node name="Gas" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Gas"]
-position = Vector2( 0, -4 )
+position = Vector2( 0, -80 )
 shape = SubResource( 18 )
-disabled = true
 
 [node name="GasParticle" type="Particles2D" parent="."]
 position = Vector2( 0, -24 )
 emitting = false
 amount = 100
-speed_scale = 1.5
+speed_scale = 0.8
 process_material = SubResource( 19 )
 
 [connection signal="timeout" from="IntroTimer" to="." method="_on_IntroTimer_timeout"]

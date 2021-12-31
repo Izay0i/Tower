@@ -9,6 +9,9 @@ onready var alive_timer = $AliveTimer
 var velocity = Vector2.ZERO
 var direction = -1
 
+func get_class():
+	return "Wave"
+
 func set_direction(dir):
 	direction = dir
 	sprite.scale.x = -direction
@@ -20,7 +23,3 @@ func _physics_process(delta):
 
 func _on_AliveTimer_timeout():
 	queue_free()
-
-func _on_Area2D_body_entered(body):
-	if body.name == "Player":
-		body.take_damage(2)

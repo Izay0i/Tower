@@ -1,11 +1,18 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Texture/Sprite/Golem.png" type="Texture" id=1]
 [ext_resource path="res://Script/Golem.gd" type="Script" id=2]
 [ext_resource path="res://SFX/rock_smash.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Shader/flash_shader.gdshader" type="Shader" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15, 16 )
+
+[sub_resource type="ShaderMaterial" id=18]
+resource_local_to_scene = true
+shader = ExtResource( 4 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_modifier = 0.0
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
@@ -71,6 +78,22 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 1, 0 ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "Flash"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 0.0 ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -143,6 +166,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 1 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/flash_modifier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
 
 [sub_resource type="AnimationNodeAnimation" id=13]
 animation = "Attack"
@@ -193,13 +228,16 @@ position = Vector2( 1, 0 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 18 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 7 )
-animation = "Idle"
+animation = "Attack"
+frame = 1
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite"]
 anims/Attack = SubResource( 9 )
+anims/Flash = SubResource( 19 )
 anims/Hurt = SubResource( 10 )
 anims/Idle = SubResource( 11 )
 anims/RESET = SubResource( 12 )

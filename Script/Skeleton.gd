@@ -22,30 +22,29 @@ func get_class():
 
 func take_damage(damage = 2):
 	health -= damage
+	animation_player.play("Hurt")
 
 func _ready():
 	health = MAX_HEALTH
 	rattle_sfx.volume_db = -10
 	
 func _physics_process(delta):
-	if death_timer.is_stopped():
-		sprite.material.set_shader_param("flash_modifier", 0)
-		
 	if health > 0:
 		sprite.play("Walk")
 		
 		_handle_movement(delta)
 	else:
-		animation_player.play("Hurt")
+		sprite.play("Hurt")
 		hitbox.disabled = true
 		if death_timer.is_stopped():
 			death_timer.start()
 
 func _handle_movement(delta):
-	if is_on_wall() or !raycast.is_colliding():
-		direction *= -1
-		sprite.scale.x *= -1
-		raycast.position.x *= -1
+	if is_on_floor():
+		if is_on_wall() or !raycast.is_colliding():
+			direction *= -1
+			sprite.scale.x *= -1
+			raycast.position.x *= -1
 	
 	velocity.x += direction * SPEED * delta
 	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)

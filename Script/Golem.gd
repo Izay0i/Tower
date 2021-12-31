@@ -5,6 +5,7 @@ const MAX_HEALTH = 10
 const WAVE = preload("res://Projectile/Wave.tscn")
 
 onready var sprite = $AnimatedSprite
+onready var animation_player = $AnimatedSprite/AnimationPlayer
 onready var hitbox = $CollisionShape2D
 onready var cooldown_timer = $CooldownTimer
 onready var death_timer = $DeathTimer
@@ -20,6 +21,7 @@ func get_class():
 
 func take_damage(damage = 2):
 	health -= damage
+	animation_player.play("Flash")
 
 func _ready():
 	health = MAX_HEALTH

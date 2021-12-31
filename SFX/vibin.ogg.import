@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/vibin.ogg-b88823a9158dec3e8dfd2ea1c4628a00.oggstr"
+
+[deps]
+
+source_file="res://SFX/vibin.ogg"
+dest_files=[ "res://.import/vibin.ogg-b88823a9158dec3e8dfd2ea1c4628a00.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -20,6 +20,7 @@ const UP_VECTOR = Vector2.UP
 
 onready var camera = $Camera2D
 onready var animated_sprite = $AnimatedSprite
+onready var animation_player = $AnimatedSprite/AnimationPlayer
 onready var animation_tree = $AnimationTree
 onready var invulnerable_timer = $InvulnerableTimer
 onready var cooldown_timer = $CooldownTimer
@@ -31,6 +32,7 @@ onready var weapon_swing_sfx = $WeaponSwingSFX
 onready var run_sfx = $RunSFX
 onready var jump_sfx = $JumpSFX
 onready var fireball_posiiton = $FireballPosition
+onready var ceil_raycast = $CeilRaycast
 
 var velocity = Vector2.ZERO
 
@@ -46,6 +48,7 @@ func take_damage(damage = 1):
 		health -= damage
 		invulnerable_timer.start()
 		hurt_sfx.play()
+		animation_player.play("Hurt")
 
 func _ready():
 	health = MAX_HEALTH
@@ -53,24 +56,33 @@ func _ready():
 	_reset_timer()
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed("debug"):
-		#_teleport(Vector2(640, 376))
-		_teleport(Vector2(1424, 2336))
+	if DEBUG:
+		if Input.is_action_just_pressed("debug"):
+			#Tutorial
+			#_teleport(Vector2(640, 376))
+			#SwampStage
+			#_teleport(Vector2(1424, 2336))
+			#SnowyIndustrialStage
+			#_teleport(Vector2(2800, 688))
+			#CastleStage
+			#_teleport(Vector2(3216, 944))
+			#_teleport(Vector2(3264, 160))
+			_teleport(Vector2(3296, -184))
 	
-	if Input.is_action_pressed("move_left"):
-		animated_sprite.flip_h = true
-		projectile_direction = -1
-	if Input.is_action_pressed("move_right"):
-		animated_sprite.flip_h = false
-		projectile_direction = 1
-	
-	if Input.is_action_just_pressed("shoot") and cooldown_timer.is_stopped():
-		_spawn_fireball(projectile_direction)
-		cooldown_timer.start()
-	if Input.is_action_pressed("melee") and attack_cooldown_timer.is_stopped():
-		if !weapon_swing_sfx.playing:
+	if health > 0:
+		if Input.is_action_pressed("move_left"):
+			animated_sprite.flip_h = true
+			projectile_direction = -1
+		if Input.is_action_pressed("move_right"):
+			animated_sprite.flip_h = false
+			projectile_direction = 1
+		
+		if Input.is_action_just_pressed("shoot") and cooldown_timer.is_stopped():
+			_spawn_fireball(projectile_direction)
+			cooldown_timer.start()
+		if Input.is_action_pressed("melee") and attack_cooldown_timer.is_stopped():
 			weapon_swing_sfx.play()
-		attack_cooldown_timer.start()
+			attack_cooldown_timer.start()
 	
 	health = clamp(health, 0, MAX_HEALTH)
 	score = clamp(score, 0, MAX_SCORE)
@@ -82,9 +94,16 @@ func _physics_process(delta):
 	
 	_handle_collision()
 	_handle_animation_state()
-	_handle_movement(delta)
+	if health > 0:
+		_handle_movement(delta)
 
 func _handle_collision():
+	if ceil_raycast.is_colliding():
+		var collider = ceil_raycast.get_collider()
+		match collider.get_class():
+			"HydraulicPress":
+				take_damage(MAX_HEALTH)
+	
 	var slide_count = get_slide_count()
 	if slide_count:
 		for collision_index in slide_count:
@@ -92,7 +111,8 @@ func _handle_collision():
 			_on_Body_body_entered(collision.collider)
 
 func _handle_animation_state():
-	animation_tree.set("parameters/state/current", Input.is_action_pressed("shoot") or Input.is_action_pressed("melee"))
+	animation_tree.set("parameters/alive_state/current", health <= 0)
+	animation_tree.set("parameters/state/current", !cooldown_timer.is_stopped() or !attack_cooldown_timer.is_stopped())
 	animation_tree.set("parameters/attack_transition/current", !attack_cooldown_timer.is_stopped())
 	animation_tree.set("parameters/air_transition/current", !is_on_floor())
 	animation_tree.set("parameters/movement_transition/current", Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"))
@@ -141,24 +161,32 @@ func _spawn_fireball(direction):
 func _teleport(position):
 	self.global_position = position
 
-func _on_Body_area_entered(_area):
-	pass
+func _on_Body_area_entered(area):
+	match area.get_class():
+		"IceSpike", "Spike":
+			take_damage(DAMAGE_TAKEN_BY_REGULAR_ENEMIES)
+		"Wave", "Wrench":
+			take_damage(DAMAGE_TAKEN_BY_BOSSES)
+		"Lava":
+			take_damage(MAX_HEALTH)
 
 func _on_Body_body_entered(body):
 	match body.get_class():
-		"Frog", "Skeleton", "Golem", "Bat":
+		"Frog", "Skeleton", "Golem", "Bat", "Gingerbread", "Elf":
 			take_damage(DAMAGE_TAKEN_BY_REGULAR_ENEMIES)
 		"Santa":
 			take_damage(DAMAGE_TAKEN_BY_BOSSES)
 
 #Scythe's hitbox
 func _on_Area2D_body_entered(body):
-	if body.name != "Player" and body.name != "TileMap":
+	if body.get_class() != "Player":
 		if body.has_method("take_damage"):
-			var damage_deal = 1
+			var damage_dealt = 1
 			match body.get_class():
-				"SwampBoss":
-					damage_deal = 3
-				"Skeleton", "Golem":
-					damage_deal = 2
-			body.take_damage(damage_deal)
+				"Present":
+					damage_dealt = 4
+				"SwampBoss", "Santa":
+					damage_dealt = 3
+				"Skeleton", "Golem", "Gingerbread", "Elf":
+					damage_dealt = 2
+			body.take_damage(damage_dealt)

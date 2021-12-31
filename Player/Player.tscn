@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://Texture/Sprite/Player.png" type="Texture" id=1]
 [ext_resource path="res://Script/Player.gd" type="Script" id=2]
@@ -7,6 +7,13 @@
 [ext_resource path="res://SFX/weapon_swing.ogg" type="AudioStream" id=5]
 [ext_resource path="res://SFX/run.ogg" type="AudioStream" id=6]
 [ext_resource path="res://SFX/jump.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Shader/flash_shader.gdshader" type="Shader" id=8]
+
+[sub_resource type="ShaderMaterial" id=38]
+resource_local_to_scene = true
+shader = ExtResource( 8 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_modifier = 0.0
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -20,9 +27,9 @@ region = Rect2( 0, 32, 16, 16 )
 atlas = ExtResource( 1 )
 region = Rect2( 16, 32, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 16, 16, 16 )
+region = Rect2( 16, 16, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
@@ -48,9 +55,13 @@ region = Rect2( 0, 112, 32, 16 )
 atlas = ExtResource( 1 )
 region = Rect2( 0, 128, 32, 16 )
 
-[sub_resource type="AtlasTexture" id=14]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
-region = Rect2( 16, 16, 16, 16 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -64,9 +75,9 @@ animations = [ {
 "name": "Run",
 "speed": 6.0
 }, {
-"frames": [ SubResource( 13 ) ],
+"frames": [ SubResource( 14 ) ],
 "loop": false,
-"name": "Shoot",
+"name": "Jump",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
@@ -74,11 +85,59 @@ animations = [ {
 "name": "Melee",
 "speed": 12.0
 }, {
-"frames": [ SubResource( 14 ) ],
+"frames": [ SubResource( 13 ) ],
 "loop": false,
-"name": "Jump",
+"name": "Shoot",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 40 ) ],
+"loop": false,
+"name": "Death",
 "speed": 5.0
 } ]
+
+[sub_resource type="Animation" id=41]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Death" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=39]
+resource_name = "Hurt"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0 ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "Idle"
@@ -191,6 +250,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [ false ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:material:shader_param/flash_modifier")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "Death" ]
+}
 
 [sub_resource type="Animation" id=12]
 resource_name = "Run"
@@ -252,6 +335,9 @@ tracks/1/keys = {
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 6.75, 12 )
 
+[sub_resource type="AnimationNodeAnimation" id=42]
+animation = "Death"
+
 [sub_resource type="AnimationNodeAnimation" id=28]
 animation = "Idle"
 
@@ -272,6 +358,13 @@ input_count = 2
 input_0/name = "Ground"
 input_0/auto_advance = false
 input_1/name = "Air"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeTransition" id=43]
+input_count = 2
+input_0/name = "Alive"
+input_0/auto_advance = false
+input_1/name = "Dead"
 input_1/auto_advance = false
 
 [sub_resource type="AnimationNodeTransition" id=27]
@@ -300,7 +393,9 @@ input_1/name = "Attack"
 input_1/auto_advance = false
 
 [sub_resource type="AnimationNodeBlendTree" id=9]
-graph_offset = Vector2( 161.95, 285.26 )
+graph_offset = Vector2( 564.18, 0 )
+nodes/Death/node = SubResource( 42 )
+nodes/Death/position = Vector2( 1260, 200 )
 nodes/Idle/node = SubResource( 28 )
 nodes/Idle/position = Vector2( 400, -200 )
 nodes/Jump/node = SubResource( 29 )
@@ -313,21 +408,23 @@ nodes/Shoot/node = SubResource( 26 )
 nodes/Shoot/position = Vector2( 800, 200 )
 nodes/air_transition/node = SubResource( 32 )
 nodes/air_transition/position = Vector2( 1000, 0 )
+nodes/alive_state/node = SubResource( 43 )
+nodes/alive_state/position = Vector2( 1460, 0 )
 nodes/attack_transition/node = SubResource( 27 )
 nodes/attack_transition/position = Vector2( 1000, 200 )
 nodes/melee_scale/node = SubResource( 35 )
 nodes/melee_scale/position = Vector2( 800, 340 )
 nodes/movement_transition/node = SubResource( 31 )
 nodes/movement_transition/position = Vector2( 600, -200 )
-nodes/output/position = Vector2( 1400, 0 )
+nodes/output/position = Vector2( 1700, 0 )
 nodes/run_scale/node = SubResource( 34 )
 nodes/run_scale/position = Vector2( 400, -60 )
 nodes/state/node = SubResource( 33 )
-nodes/state/position = Vector2( 1200, 0 )
-node_connections = [ "state", 0, "air_transition", "state", 1, "attack_transition", "output", 0, "state", "run_scale", 0, "Run", "attack_transition", 0, "Shoot", "attack_transition", 1, "melee_scale", "melee_scale", 0, "Melee", "air_transition", 0, "movement_transition", "air_transition", 1, "Jump", "movement_transition", 0, "Idle", "movement_transition", 1, "run_scale" ]
+nodes/state/position = Vector2( 1260, 0 )
+node_connections = [ "state", 0, "air_transition", "state", 1, "attack_transition", "output", 0, "alive_state", "movement_transition", 0, "Idle", "movement_transition", 1, "run_scale", "attack_transition", 0, "Shoot", "attack_transition", 1, "melee_scale", "melee_scale", 0, "Melee", "air_transition", 0, "movement_transition", "air_transition", 1, "Jump", "run_scale", 0, "Run", "alive_state", 0, "state", "alive_state", 1, "Death" ]
 
 [sub_resource type="RectangleShape2D" id=36]
-extents = Vector2( 20, 24 )
+extents = Vector2( 16, 24 )
 
 [sub_resource type="RectangleShape2D" id=37]
 extents = Vector2( 7, 12 )
@@ -336,11 +433,14 @@ extents = Vector2( 7, 12 )
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 38 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 2 )
-animation = "idle"
+animation = "Death"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite"]
+anims/Death = SubResource( 41 )
+anims/Hurt = SubResource( 39 )
 anims/Idle = SubResource( 6 )
 anims/Jump = SubResource( 21 )
 anims/Melee = SubResource( 23 )
@@ -363,6 +463,7 @@ tree_root = SubResource( 9 )
 anim_player = NodePath("../AnimatedSprite/AnimationPlayer")
 active = true
 parameters/air_transition/current = 0
+parameters/alive_state/current = 0
 parameters/attack_transition/current = 1
 parameters/melee_scale/scale = 2.0
 parameters/movement_transition/current = 0
@@ -378,7 +479,7 @@ __meta__ = {
 collision_mask = 3
 
 [node name="ScytheHitbox" type="CollisionShape2D" parent="Scythe/Area2D"]
-position = Vector2( 12, 0 )
+position = Vector2( 8, 0 )
 shape = SubResource( 36 )
 
 [node name="Body" type="Area2D" parent="."]
@@ -404,7 +505,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="AttackCooldownTimer" type="Timer" parent="."]
-wait_time = 0.45
+wait_time = 0.4
 one_shot = true
 
 [node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
@@ -421,6 +522,11 @@ stream = ExtResource( 7 )
 
 [node name="FireballPosition" type="Position2D" parent="."]
 position = Vector2( 17, 6 )
+
+[node name="CeilRaycast" type="RayCast2D" parent="."]
+scale = Vector2( 1, -1 )
+enabled = true
+cast_to = Vector2( 0, 5 )
 
 [connection signal="body_entered" from="Scythe/Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="area_entered" from="Body" to="." method="_on_Body_area_entered"]

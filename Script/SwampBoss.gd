@@ -4,19 +4,22 @@ const SKELETON = preload("res://Enemy/Skeleton.tscn")
 
 const POSITION = Vector2(896, 1360)
 
-const ATTACK_DAMAGE = 2
-const MAX_HEALTH = 33
-const MAX_SPAWN_COUNT = 3
+const ATTACK_DAMAGE = 3
+const MAX_HEALTH = 42
+const MAX_SPAWN_COUNT = 2
 
 onready var intro_timer = $IntroTimer
 onready var death_timer = $DeathTimer
 onready var idle_timer = $IdleTimer
 onready var attack_timer = $AttackTimer
+onready var invulnerable_timer = $InvulnerableTimer
 onready var pop_sfx = $PopSFX
 onready var cry = $Cry
+onready var gas_sfx = $GasSFX
 onready var explode_sfx = $ExplodeSFX
 onready var spawner = $Spawner
 onready var animation_tree = $AnimationTree
+onready var animation_player = $AnimatedSprite/AnimationPlayer
 onready var gas_particle = $GasParticle
 onready var gas_hitbox = $Gas/CollisionShape2D
 onready var hitbox = $CollisionShape2D
@@ -31,10 +34,14 @@ func get_class():
 	return "SwampBoss"
 
 func take_damage(damage = 1):
-	health -= damage
+	if invulnerable_timer.is_stopped():
+		health -= damage
+		animation_player.play("Flash")
+		invulnerable_timer.start()
 
 func _ready():
 	health = MAX_HEALTH
+	gas_hitbox.disabled = true
 
 func _physics_process(_delta):
 	if active:
@@ -48,8 +55,11 @@ func _physics_process(_delta):
 
 func _handle_attack_state():
 	if !attack_timer.is_stopped():
-		call("_spawn_skeletons")
-		call("_gas_attack")
+		var attacks = ["_spawn_skeletons", "_gas_attack"]
+		attacks.shuffle()
+		
+		var attack = attacks.front()
+		call(attack)
 
 func _handle_animation_state():
 	animation_tree.set("parameters/state/current", health <= 0)
@@ -68,13 +78,23 @@ func _spawn_skeletons():
 		get_parent().add_child(skeleton)
 		skeleton.get_parent().add_to_group("Enemies")
 		skeleton.global_position = Vector2(spawn_point, spawner.global_position.y)
-		skeleton.velocity.y -= 20
+		
+		var directions = [-1, 1]
+		directions.shuffle()
+		var direction = directions.front()
+		
+		skeleton.direction *= direction
+		skeleton.sprite.scale.x *= direction
+		skeleton.raycast.position.x *= direction
 		
 		pop_sfx.play()
 
 func _gas_attack():
 	gas_hitbox.disabled = false
 	gas_particle.emitting = true
+	if !gas_sfx.playing:
+		gas_sfx.play()
+	animation_player.play("Gas")
 
 func _on_IntroTimer_timeout():
 	active = true
@@ -98,4 +118,4 @@ func _on_AttackTimer_timeout():
 func _on_Gas_body_entered(body):
 	if !gas_hitbox.disabled:
 		if body.get_class() == "Player":
-			body.take_damage(2)
+			body.take_damage(ATTACK_DAMAGE)

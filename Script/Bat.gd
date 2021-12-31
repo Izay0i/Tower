@@ -21,20 +21,18 @@ func get_class():
 
 func take_damage(damage = 1):
 	health -= damage
+	animation_player.play("Hurt")
 
 func _ready():
 	health = MAX_HEALTH
 
 func _physics_process(delta):
-	if death_timer.is_stopped():
-		sprite.material.set_shader_param("flash_modifier", 0)
-		
 	if health > 0:
 		sprite.play("Fly")
 		
 		_handle_movement(delta)
 	else:
-		animation_player.play("Hurt")
+		sprite.play("Hurt")
 		hitbox.disabled = true
 		if death_timer.is_stopped():
 			death_timer.start()
