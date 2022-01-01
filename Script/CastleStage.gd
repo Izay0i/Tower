@@ -7,6 +7,8 @@ onready var castle_loop = $CastleLoop
 onready var boss_start = $BossStart
 onready var boss_loop = $BossLoop
 onready var victory = $Victory
+onready var pause_screen = $CanvasLayer/PauseScreen
+onready var victory_sprite = $CanvasLayer/VictorySprite
 
 var can_play = true
 
@@ -23,10 +25,14 @@ func _ready():
 	_set_camera_limit(768, 512, 3280, 992)
 
 func _physics_process(_delta):
+	if player.health == 0:
+		pause_screen.visible = true
+	
 	if !has_node("Enemies/Santa"):
 		if can_play:
 			can_play = false
 			victory.play()
+			victory_sprite.visible = true
 		
 		boss_loop.stop()
 		var enemies = get_tree().get_nodes_in_group("Enemies")
@@ -48,6 +54,10 @@ func _on_CastleStart_finished():
 
 func _on_BossStart_finished():
 	boss_loop.play()
+
+func _on_Victory_finished():
+	if get_tree().change_scene("res://Screen/StageSelectScreen.tscn") != OK:
+		print("Failed to change to stage select")
 
 func _on_Teleporter_body_entered(body):
 	if body.get_class() == "Player":

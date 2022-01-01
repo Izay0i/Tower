@@ -96,7 +96,6 @@ script = ExtResource( 2 )
 material = SubResource( 10 )
 frames = SubResource( 5 )
 animation = "Run"
-frame = 1
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite"]

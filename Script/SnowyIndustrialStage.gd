@@ -4,7 +4,12 @@ onready var player = $Player
 onready var winter_background = $WinterBackground
 onready var winter_loop = $WinterLoop
 onready var factory_loop = $FactoryLoop
+onready var victory = $Victory
 onready var snow_particle = $Snow/Particles2D
+onready var pause_screen = $CanvasLayer/PauseScreen
+onready var victory_sprite = $CanvasLayer/VictorySprite
+
+var can_play = true
 
 func _ready():
 	winter_loop.volume_db = -10
@@ -14,6 +19,9 @@ func _ready():
 	_set_camera_limit(0, 448, 2848, 736)
 
 func _physics_process(_delta):
+	if player.health == 0:
+		pause_screen.visible = true
+	
 	if has_node("Snow/Particles2D"):
 		snow_particle.position.x = player.position.x - 255
 
@@ -51,3 +59,16 @@ func _on_LimitBody3_body_entered(body):
 func _on_LimitBody4_body_entered(body):
 	if body.get_class() == "Player":
 		_set_camera_limit(5632, 288, 6944, 512)
+
+func _on_TriggerEnd_body_entered(body):
+	if body.get_class() == "Player":
+		if can_play:
+			can_play = false
+			victory.play()
+			victory_sprite.visible = true
+		
+		factory_loop.stop()
+
+func _on_Victory_finished():
+	if get_tree().change_scene("res://Screen/StageSelectScreen.tscn") != OK:
+		print("Failed to change to stage select")

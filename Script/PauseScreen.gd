@@ -9,5 +9,5 @@ func _on_RetryButton_pressed():
 	print(foo)
 
 func _on_HomeButton_pressed():
-	if get_tree().change_scene("res://Screen/TitleScreen.tscn") != OK:
-		print("Failed to change to title screen")
+	if get_tree().change_scene("res://Screen/StageSelectScreen.tscn") != OK:
+		print("Failed to change to stage select")

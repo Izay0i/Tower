@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://Texture/Sprite/Player.png" type="Texture" id=1]
 [ext_resource path="res://Script/Player.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://SFX/run.ogg" type="AudioStream" id=6]
 [ext_resource path="res://SFX/jump.ogg" type="AudioStream" id=7]
 [ext_resource path="res://Shader/flash_shader.gdshader" type="Shader" id=8]
+[ext_resource path="res://Texture/red_tint.png" type="Texture" id=9]
 
 [sub_resource type="ShaderMaterial" id=38]
 resource_local_to_scene = true
@@ -421,7 +422,7 @@ nodes/run_scale/node = SubResource( 34 )
 nodes/run_scale/position = Vector2( 400, -60 )
 nodes/state/node = SubResource( 33 )
 nodes/state/position = Vector2( 1260, 0 )
-node_connections = [ "state", 0, "air_transition", "state", 1, "attack_transition", "output", 0, "alive_state", "movement_transition", 0, "Idle", "movement_transition", 1, "run_scale", "attack_transition", 0, "Shoot", "attack_transition", 1, "melee_scale", "melee_scale", 0, "Melee", "air_transition", 0, "movement_transition", "air_transition", 1, "Jump", "run_scale", 0, "Run", "alive_state", 0, "state", "alive_state", 1, "Death" ]
+node_connections = [ "state", 0, "air_transition", "state", 1, "attack_transition", "output", 0, "alive_state", "movement_transition", 0, "Idle", "movement_transition", 1, "run_scale", "run_scale", 0, "Run", "alive_state", 0, "state", "alive_state", 1, "Death", "attack_transition", 0, "Shoot", "attack_transition", 1, "melee_scale", "melee_scale", 0, "Melee", "air_transition", 0, "movement_transition", "air_transition", 1, "Jump" ]
 
 [sub_resource type="RectangleShape2D" id=36]
 extents = Vector2( 16, 24 )
@@ -495,6 +496,11 @@ shape = SubResource( 37 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 3 )]
+
+[node name="RedTintSprite" type="Sprite" parent="CanvasLayer"]
+visible = false
+texture = ExtResource( 9 )
+centered = false
 
 [node name="InvulnerableTimer" type="Timer" parent="."]
 wait_time = 2.0

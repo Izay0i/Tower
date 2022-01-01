@@ -1,10 +1,14 @@
 extends Node2D
 
 onready var player = $Player
+onready var swamp_boss = $Enemies/SwampBoss
 onready var swamp_loop = $SwampLoop
 onready var boss_loop = $BossLoop
+onready var victory = $Victory
+onready var pause_screen = $CanvasLayer/PauseScreen
+onready var victory_sprite = $CanvasLayer/VictorySprite
 
-onready var swamp_boss = get_node("Enemies/SwampBoss")
+var can_play = true
 
 func _ready():
 	swamp_loop.volume_db = -20
@@ -13,7 +17,15 @@ func _ready():
 	_set_camera_limit(0, 0, 640, 288)
 
 func _physics_process(_delta):
+	if player.health == 0:
+		pause_screen.visible = true
+	
 	if !has_node("Enemies/SwampBoss"):
+		if can_play:
+			can_play = false
+			victory.play()
+			victory_sprite.visible = true
+		
 		boss_loop.stop()
 		var enemies = get_tree().get_nodes_in_group("Enemies")
 		for enemy in enemies:
@@ -91,3 +103,7 @@ func _on_TriggerBossArea_body_entered(body):
 	if body.get_class() == "Player":
 		swamp_boss.intro_timer.start()
 		boss_loop.play()
+
+func _on_Victory_finished():
+	if get_tree().change_scene("res://Screen/StageSelectScreen.tscn") != OK:
+		print("Failed to change to stage select")

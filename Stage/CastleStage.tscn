@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Tilemap Scene/CastleTile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -28,6 +28,7 @@
 [ext_resource path="res://Song/santa_loop.ogg" type="AudioStream" id=26]
 [ext_resource path="res://Song/victory.ogg" type="AudioStream" id=27]
 [ext_resource path="res://Screen/PauseScreen.tscn" type="PackedScene" id=28]
+[ext_resource path="res://Texture/victory_screen.png" type="Texture" id=29]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 8 )
@@ -423,9 +424,6 @@ position = Vector2( 2840, 24 )
 [node name="MovingPlatformVertical" parent="Platforms" instance=ExtResource( 11 )]
 position = Vector2( 2032, 896 )
 
-[node name="KinematicBody2D" parent="Platforms/MovingPlatformVertical" index="0"]
-position = Vector2( 30.5024, 0 )
-
 [node name="Path2D" parent="Platforms/MovingPlatformVertical" index="1"]
 curve = SubResource( 3 )
 
@@ -434,9 +432,6 @@ playback_speed = 0.2
 
 [node name="MovingPlatformVertical2" parent="Platforms" instance=ExtResource( 11 )]
 position = Vector2( 1736, 368 )
-
-[node name="KinematicBody2D" parent="Platforms/MovingPlatformVertical2" index="0"]
-position = Vector2( 72.0374, 0 )
 
 [node name="Path2D" parent="Platforms/MovingPlatformVertical2" index="1"]
 curve = SubResource( 4 )
@@ -811,6 +806,12 @@ stream = ExtResource( 27 )
 [node name="PauseScreen" parent="CanvasLayer" instance=ExtResource( 28 )]
 visible = false
 
+[node name="VictorySprite" type="Sprite" parent="CanvasLayer"]
+visible = false
+scale = Vector2( 1.53846, 1.15385 )
+texture = ExtResource( 29 )
+centered = false
+
 [connection signal="body_entered" from="Teleporters/Teleporter" to="." method="_on_Teleporter_body_entered"]
 [connection signal="body_entered" from="Teleporters/Teleporter2" to="." method="_on_Teleporter2_body_entered"]
 [connection signal="body_entered" from="Water/WaterBody" to="." method="_on_WaterBody_body_entered"]
@@ -822,6 +823,7 @@ visible = false
 [connection signal="body_entered" from="CameraLimit" to="." method="_on_CameraLimit_body_entered"]
 [connection signal="finished" from="CastleStart" to="." method="_on_CastleStart_finished"]
 [connection signal="finished" from="BossStart" to="." method="_on_BossStart_finished"]
+[connection signal="finished" from="Victory" to="." method="_on_Victory_finished"]
 
 [editable path="Spikes/Spike74"]
 [editable path="Spikes/Spike75"]

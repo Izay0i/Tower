@@ -1,5 +1,10 @@
 extends Node2D
 
+onready var audio = $AudioStreamPlayer
+
+func _ready():
+	audio.volume_db = -15
+
 func _on_SwampButton_pressed():
 	if get_tree().change_scene("res://Stage/SwampStage.tscn") != OK:
 		print("Failed to change to swamp stage")

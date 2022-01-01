@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const MAX_HEALTH = 4
+const MAX_HEALTH = 5
 const MAX_SPEED = 64
 const SPEED = 48
 const GRAVITY = 256

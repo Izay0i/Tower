@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const FIREBALL = preload("res://Projectile/Fireball.tscn")
 
-const DEBUG = true
+const DEBUG = false
 
 const MAX_HEALTH = 5
 const MAX_SCORE = 9999
@@ -19,6 +19,8 @@ const JUMP_FORCE = 128
 const UP_VECTOR = Vector2.UP
 
 onready var camera = $Camera2D
+onready var hitbox = $CollisionShape2D
+onready var body_hitbox = $Body/CollisionShape2D
 onready var animated_sprite = $AnimatedSprite
 onready var animation_player = $AnimatedSprite/AnimationPlayer
 onready var animation_tree = $AnimationTree
@@ -27,6 +29,7 @@ onready var cooldown_timer = $CooldownTimer
 onready var attack_cooldown_timer = $AttackCooldownTimer
 onready var scythe_hitbox = $Scythe/Area2D/ScytheHitbox
 onready var hud = $CanvasLayer/HUD
+onready var redtint_sprite = $CanvasLayer/RedTintSprite
 onready var hurt_sfx = $HurtSFX
 onready var weapon_swing_sfx = $WeaponSwingSFX
 onready var run_sfx = $RunSFX
@@ -64,6 +67,7 @@ func _physics_process(delta):
 			#_teleport(Vector2(1424, 2336))
 			#SnowyIndustrialStage
 			#_teleport(Vector2(2800, 688))
+			#_teleport(Vector2(6864, 424))
 			#CastleStage
 			#_teleport(Vector2(3216, 944))
 			#_teleport(Vector2(3264, 160))
@@ -87,6 +91,9 @@ func _physics_process(delta):
 	health = clamp(health, 0, MAX_HEALTH)
 	score = clamp(score, 0, MAX_SCORE)
 	
+	hitbox.disabled = health == 0
+	body_hitbox.disabled = health == 0
+	redtint_sprite.visible = health == 1
 	scythe_hitbox.disabled = attack_cooldown_timer.is_stopped()
 	
 	hud.update_health(health)
