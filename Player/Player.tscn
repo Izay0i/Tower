@@ -32,6 +32,10 @@ region = Rect2( 16, 32, 16, 16 )
 atlas = ExtResource( 1 )
 region = Rect2( 16, 16, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 16 )
+
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 48, 32, 16 )
@@ -60,10 +64,6 @@ region = Rect2( 0, 128, 32, 16 )
 atlas = ExtResource( 1 )
 region = Rect2( 0, 16, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 1 )
-region = Rect2( 16, 0, 16, 16 )
-
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ SubResource( 1 ) ],
@@ -81,6 +81,11 @@ animations = [ {
 "name": "Jump",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 40 ) ],
+"loop": false,
+"name": "Death",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
 "loop": true,
 "name": "Melee",
@@ -89,11 +94,6 @@ animations = [ {
 "frames": [ SubResource( 13 ) ],
 "loop": false,
 "name": "Shoot",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 40 ) ],
-"loop": false,
-"name": "Death",
 "speed": 5.0
 } ]
 
@@ -422,7 +422,7 @@ nodes/run_scale/node = SubResource( 34 )
 nodes/run_scale/position = Vector2( 400, -60 )
 nodes/state/node = SubResource( 33 )
 nodes/state/position = Vector2( 1260, 0 )
-node_connections = [ "state", 0, "air_transition", "state", 1, "attack_transition", "output", 0, "alive_state", "movement_transition", 0, "Idle", "movement_transition", 1, "run_scale", "run_scale", 0, "Run", "alive_state", 0, "state", "alive_state", 1, "Death", "attack_transition", 0, "Shoot", "attack_transition", 1, "melee_scale", "melee_scale", 0, "Melee", "air_transition", 0, "movement_transition", "air_transition", 1, "Jump" ]
+node_connections = [ "state", 0, "air_transition", "state", 1, "attack_transition", "output", 0, "alive_state", "air_transition", 0, "movement_transition", "air_transition", 1, "Jump", "alive_state", 0, "state", "alive_state", 1, "Death", "melee_scale", 0, "Melee", "run_scale", 0, "Run", "movement_transition", 0, "Idle", "movement_transition", 1, "run_scale", "attack_transition", 0, "Shoot", "attack_transition", 1, "melee_scale" ]
 
 [sub_resource type="RectangleShape2D" id=36]
 extents = Vector2( 16, 24 )

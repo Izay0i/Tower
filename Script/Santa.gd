@@ -55,6 +55,7 @@ func _physics_process(delta):
 			if is_on_wall():
 				direction *= -1
 				sprite.scale.x *= -1
+				hitbox.position.x *= -1
 				enemy_spawn_position.position.x *= -1
 		
 			_handle_attack_state(delta)
@@ -112,4 +113,5 @@ func _on_DetectArea_body_entered(body):
 	if body.get_class():
 		direction *= -1
 		sprite.scale.x *= -1
+		hitbox.position.x *= -1
 		enemy_spawn_position.position.x *= -1
