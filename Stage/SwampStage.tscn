@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Tilemap Scene/SwampTile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://Texture/Tileset/free-swamp-game-tileset-pixel-art/2 Background/Layers/3.png" type="Texture" id=15]
 [ext_resource path="res://Shader/fog_shader.gdshader" type="Shader" id=16]
 [ext_resource path="res://Song/swamp_battle.ogg" type="AudioStream" id=17]
+[ext_resource path="res://Screen/PauseScreen.tscn" type="PackedScene" id=18]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 112, 8 )
@@ -403,6 +404,11 @@ shape = SubResource( 14 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 80, 144 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseScreen" parent="CanvasLayer" instance=ExtResource( 18 )]
+visible = false
 
 [connection signal="body_entered" from="Water/WaterBody" to="." method="_on_WaterBody_body_entered"]
 [connection signal="body_entered" from="Water/WaterBody2" to="." method="_on_WaterBody2_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://Tilemap Scene/SnowTile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://Enemy/Present.tscn" type="PackedScene" id=24]
 [ext_resource path="res://MovingPlatform/Elevator.tscn" type="PackedScene" id=25]
 [ext_resource path="res://BGObject/Smoke.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Screen/PauseScreen.tscn" type="PackedScene" id=27]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 60 )
@@ -1240,6 +1241,11 @@ position = Vector2( 5519, 451 )
 
 [node name="Smoke5" parent="Smokes" instance=ExtResource( 26 )]
 position = Vector2( 5519, 451 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseScreen" parent="CanvasLayer" instance=ExtResource( 27 )]
+visible = false
 
 [connection signal="body_entered" from="Teleporter" to="." method="_on_Teleporter_body_entered"]
 [connection signal="body_entered" from="LimitChange/LimitBody" to="." method="_on_LimitBody_body_entered"]

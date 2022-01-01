@@ -16,7 +16,7 @@ func _ready():
 	boss_start.volume_db = -5
 	boss_loop.volume_db = -5
 	victory.volume_db = -10
-	#castle_start.play()
+	castle_start.play()
 	
 	_set_camera_zoom(0.45, 0.45)
 	#_set_camera_limit(0, 0, 384, 192)

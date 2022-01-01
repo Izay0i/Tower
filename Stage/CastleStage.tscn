@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://Tilemap Scene/CastleTile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://Song/santa_start.ogg" type="AudioStream" id=25]
 [ext_resource path="res://Song/santa_loop.ogg" type="AudioStream" id=26]
 [ext_resource path="res://Song/victory.ogg" type="AudioStream" id=27]
+[ext_resource path="res://Screen/PauseScreen.tscn" type="PackedScene" id=28]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 8 )
@@ -428,10 +429,6 @@ position = Vector2( 30.5024, 0 )
 [node name="Path2D" parent="Platforms/MovingPlatformVertical" index="1"]
 curve = SubResource( 3 )
 
-[node name="PathFollow2D" parent="Platforms/MovingPlatformVertical/Path2D" index="0"]
-position = Vector2( 30.5024, 0 )
-offset = 30.5205
-
 [node name="AnimationPlayer" parent="Platforms/MovingPlatformVertical" index="2"]
 playback_speed = 0.2
 
@@ -443,10 +440,6 @@ position = Vector2( 72.0374, 0 )
 
 [node name="Path2D" parent="Platforms/MovingPlatformVertical2" index="1"]
 curve = SubResource( 4 )
-
-[node name="PathFollow2D" parent="Platforms/MovingPlatformVertical2/Path2D" index="0"]
-position = Vector2( 72.0373, 0 )
-offset = 72.0179
 
 [node name="AnimationPlayer" parent="Platforms/MovingPlatformVertical2" index="2"]
 playback_speed = 0.2
@@ -812,6 +805,11 @@ stream = ExtResource( 26 )
 
 [node name="Victory" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 27 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseScreen" parent="CanvasLayer" instance=ExtResource( 28 )]
+visible = false
 
 [connection signal="body_entered" from="Teleporters/Teleporter" to="." method="_on_Teleporter_body_entered"]
 [connection signal="body_entered" from="Teleporters/Teleporter2" to="." method="_on_Teleporter2_body_entered"]

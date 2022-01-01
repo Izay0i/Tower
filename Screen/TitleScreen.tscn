@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Texture/game_screen.png" type="Texture" id=1]
+[ext_resource path="res://Song/aesthetic.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Script/TitleScreen.gd" type="Script" id=3]
 
 [node name="TitleScreen" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.533333, 0.711111 )
@@ -38,3 +41,12 @@ text = "QUIT"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -10.0
+autoplay = true
+
+[connection signal="pressed" from="TutorialButton" to="." method="_on_TutorialButton_pressed"]
+[connection signal="pressed" from="StagesButton" to="." method="_on_StagesButton_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]

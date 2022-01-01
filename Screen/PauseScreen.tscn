@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Script/PauseScreen.gd" type="Script" id=1]
+
+[node name="PauseScreen" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 640.0
+margin_bottom = 480.0
+color = Color( 1, 1, 1, 0.462745 )
+
+[node name="RetryButton" type="Button" parent="."]
+margin_left = 296.0
+margin_top = 192.0
+margin_right = 348.0
+margin_bottom = 212.0
+text = "RETRY"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HomeButton" type="Button" parent="."]
+margin_left = 296.0
+margin_top = 256.0
+margin_right = 348.0
+margin_bottom = 276.0
+text = "HOME"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="RetryButton" to="." method="_on_RetryButton_pressed"]
+[connection signal="pressed" from="HomeButton" to="." method="_on_HomeButton_pressed"]

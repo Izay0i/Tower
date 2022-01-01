@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Tower"
-run/main_scene="res://Stage/CastleStage.tscn"
+run/main_scene="res://Screen/TitleScreen.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -51,6 +51,11 @@ shoot={
 debug={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+exit={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 
