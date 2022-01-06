@@ -56,6 +56,9 @@ func _on_BossStart_finished():
 	boss_loop.play()
 
 func _on_Victory_finished():
+	var highscore = player.score if player.score > Global.castle_highscore else Global.castle_highscore
+	Global.save_highscores(Global.tutorial_highscore, Global.swamp_highscore, Global.factory_highscore, highscore)
+	
 	if get_tree().change_scene("res://Screen/StageSelectScreen.tscn") != OK:
 		print("Failed to change to stage select")
 

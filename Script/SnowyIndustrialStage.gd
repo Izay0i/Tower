@@ -70,5 +70,8 @@ func _on_TriggerEnd_body_entered(body):
 		factory_loop.stop()
 
 func _on_Victory_finished():
+	var highscore = player.score if player.score > Global.factory_highscore else Global.factory_highscore
+	Global.save_highscores(Global.tutorial_highscore, Global.swamp_highscore, highscore, Global.castle_highscore)
+	
 	if get_tree().change_scene("res://Screen/StageSelectScreen.tscn") != OK:
 		print("Failed to change to stage select")

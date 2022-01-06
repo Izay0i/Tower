@@ -105,5 +105,8 @@ func _on_TriggerBossArea_body_entered(body):
 		boss_loop.play()
 
 func _on_Victory_finished():
+	var highscore = player.score if player.score > Global.swamp_highscore else Global.swamp_highscore
+	Global.save_highscores(Global.tutorial_highscore, highscore, Global.factory_highscore, Global.castle_highscore)
+	
 	if get_tree().change_scene("res://Screen/StageSelectScreen.tscn") != OK:
 		print("Failed to change to stage select")

@@ -77,6 +77,67 @@ __meta__ = {
 stream = ExtResource( 6 )
 autoplay = true
 
+[node name="Background" type="ColorRect" parent="."]
+margin_left = 8.0
+margin_top = 352.0
+margin_right = 136.0
+margin_bottom = 472.0
+color = Color( 0.258824, 0.203922, 0.203922, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Highscores" type="Label" parent="."]
+margin_left = 8.0
+margin_top = 360.0
+margin_right = 136.0
+margin_bottom = 374.0
+text = "HIGHSCORES"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TutorialHighscore" type="Label" parent="."]
+margin_left = 16.0
+margin_top = 384.0
+margin_right = 128.0
+margin_bottom = 398.0
+text = "Tutorial"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SwampHighscore" type="Label" parent="."]
+margin_left = 16.0
+margin_top = 408.0
+margin_right = 128.0
+margin_bottom = 422.0
+text = "Swamp"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FactoryHighscore" type="Label" parent="."]
+margin_left = 16.0
+margin_top = 432.0
+margin_right = 128.0
+margin_bottom = 446.0
+text = "Factory"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CastleHighscore" type="Label" parent="."]
+margin_left = 16.0
+margin_top = 456.0
+margin_right = 128.0
+margin_bottom = 470.0
+text = "Castle"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="SwampButton" to="." method="_on_SwampButton_pressed"]
 [connection signal="pressed" from="FactoryButton" to="." method="_on_FactoryButton_pressed"]
 [connection signal="pressed" from="CastleButton" to="." method="_on_CastleButton_pressed"]

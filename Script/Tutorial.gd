@@ -42,5 +42,8 @@ func _on_ForestStart_finished():
 	forest_loop.play()
 
 func _on_Victory_finished():
+	var highscore = player.score if player.score > Global.tutorial_highscore else Global.tutorial_highscore
+	Global.save_highscores(highscore, Global.swamp_highscore, Global.factory_highscore, Global.castle_highscore)
+	
 	if get_tree().change_scene("res://Screen/StageSelectScreen.tscn") != OK:
 		print("Failed to change to stage select")

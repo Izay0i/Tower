@@ -120,10 +120,10 @@ animation = "K"
 
 [node name="Flag" parent="Flags" instance=ExtResource( 9 )]
 position = Vector2( 328, 328 )
-frame = 2
 
 [node name="Flag2" parent="Flags" instance=ExtResource( 9 )]
 position = Vector2( 592, 200 )
+frame = 2
 
 [node name="Items" type="Node2D" parent="."]
 position = Vector2( 432, 304 )
