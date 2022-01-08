@@ -74,7 +74,8 @@ func _on_Teleporter2_body_entered(body):
 		_set_camera_limit(0, 0, 384, 192)
 		santa.intro_timer.start()
 		santa.intro_sfx.play()
-		castle_loop.stop()
+		castle_start.stream_paused = true
+		castle_loop.stream_paused = true
 		boss_start.play()
 
 func _on_CameraLimit_body_entered(body):

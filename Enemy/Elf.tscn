@@ -83,16 +83,16 @@ tracks/0/keys = {
 extents = Vector2( 8, 11 )
 
 [sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 40, 8 )
+extents = Vector2( 116, 8 )
 
 [node name="Elf" type="KinematicBody2D"]
+collision_layer = 4
 script = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 5 )
 frames = SubResource( 2 )
 animation = "Attack"
-frame = 1
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite"]
@@ -114,7 +114,7 @@ one_shot = true
 position = Vector2( -16, -16 )
 
 [node name="DetectArea" type="Area2D" parent="."]
-position = Vector2( 64, 0 )
+position = Vector2( 144, 0 )
 __meta__ = {
 "_edit_lock_": true
 }

@@ -2,10 +2,11 @@ extends KinematicBody2D
 
 const FIREBALL = preload("res://Projectile/Fireball.tscn")
 
-const DEBUG = false
+const DEBUG = true
 
-const MAX_HEALTH = 5
+const MAX_HEALTH = 99
 const MAX_SCORE = 9999
+const DEFAULT_HEALTH = 5
 
 const DAMAGE_TAKEN_BY_REGULAR_ENEMIES = 1
 const DAMAGE_TAKEN_BY_BOSSES = 2
@@ -54,25 +55,32 @@ func take_damage(damage = 1):
 		animation_player.play("Hurt")
 
 func _ready():
-	health = MAX_HEALTH
+	health = DEFAULT_HEALTH
 	
 	_reset_timer()
 
-func _physics_process(delta):
+func _input(event):
 	if DEBUG:
-		if Input.is_action_just_pressed("debug"):
-			#Tutorial
-			#_teleport(Vector2(640, 376))
-			#SwampStage
-			#_teleport(Vector2(1424, 2336))
-			#SnowyIndustrialStage
-			#_teleport(Vector2(2800, 688))
-			#_teleport(Vector2(6864, 424))
-			#CastleStage
-			#_teleport(Vector2(3216, 944))
-			#_teleport(Vector2(3264, 160))
+		if event.is_action_pressed("debug"):
+			health = 99
+		#Tutorial
+		if event.is_action_pressed("one"):
+			_teleport(Vector2(640, 376))
+		#SwampStage
+		if event.is_action_pressed("two"):
+			_teleport(Vector2(1424, 2336))
+		#SnowyIndustrialStage
+		if event.is_action_pressed("three"):
+			_teleport(Vector2(2800, 688))
+		if event.is_action_pressed("four"):
+			_teleport(Vector2(6864, 424))
+		#CastleStage
+		if event.is_action_pressed("five"):
+			_teleport(Vector2(3248, 600))
+		if event.is_action_pressed("six"):
 			_teleport(Vector2(3296, -184))
-	
+
+func _physics_process(delta):
 	if health > 0:
 		if Input.is_action_pressed("move_left"):
 			animated_sprite.flip_h = true

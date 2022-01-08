@@ -11,18 +11,6 @@ shader = ExtResource( 4 )
 shader_param/flash_color = Color( 1, 1, 1, 1 )
 shader_param/flash_modifier = 0.0
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 16, 32 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 16, 32 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
-region = Rect2( 32, 32, 16, 32 )
-
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 16, 32 )
@@ -39,18 +27,20 @@ region = Rect2( 0, 32, 16, 32 )
 atlas = ExtResource( 1 )
 region = Rect2( 16, 32, 16, 32 )
 
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 32, 16, 32 )
+
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
-"loop": true,
-"name": "Attack",
-"speed": 3.0
-}, {
-"frames": [ SubResource( 9 ) ],
-"loop": false,
-"name": "Hurt",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "Idle",
@@ -60,6 +50,16 @@ animations = [ {
 "loop": true,
 "name": "Walk",
 "speed": 2.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "Attack",
+"speed": 3.0
+}, {
+"frames": [ SubResource( 9 ) ],
+"loop": false,
+"name": "Hurt",
+"speed": 5.0
 } ]
 
 [sub_resource type="Animation" id=11]

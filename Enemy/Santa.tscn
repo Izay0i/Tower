@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Texture/Sprite/Santa.png" type="Texture" id=1]
 [ext_resource path="res://Script/Santa.gd" type="Script" id=2]
@@ -237,11 +237,21 @@ animation = "Explode"
 [sub_resource type="AnimationNodeAnimation" id=19]
 animation = "Idle"
 
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "Spawn"
+
 [sub_resource type="AnimationNodeTransition" id=21]
 input_count = 2
 input_0/name = "Idle"
 input_0/auto_advance = false
 input_1/name = "Attack"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeTransition" id=25]
+input_count = 2
+input_0/name = "Bounce"
+input_0/auto_advance = false
+input_1/name = "Spawn"
 input_1/auto_advance = false
 
 [sub_resource type="AnimationNodeTransition" id=23]
@@ -252,19 +262,23 @@ input_1/name = "Dead"
 input_1/auto_advance = false
 
 [sub_resource type="AnimationNodeBlendTree" id=12]
-graph_offset = Vector2( 0, 202.5 )
+graph_offset = Vector2( 0, -18.9104 )
 nodes/Bounce/node = SubResource( 17 )
-nodes/Bounce/position = Vector2( 400, 340 )
+nodes/Bounce/position = Vector2( 200, 400 )
 nodes/Explode/node = SubResource( 18 )
 nodes/Explode/position = Vector2( 600, 400 )
 nodes/Idle/node = SubResource( 19 )
 nodes/Idle/position = Vector2( 400, 200 )
+nodes/Spawn/node = SubResource( 24 )
+nodes/Spawn/position = Vector2( 200, 540 )
 nodes/alive_state/node = SubResource( 21 )
 nodes/alive_state/position = Vector2( 600, 200 )
+nodes/attack_state/node = SubResource( 25 )
+nodes/attack_state/position = Vector2( 400, 400 )
 nodes/output/position = Vector2( 1000, 200 )
 nodes/state/node = SubResource( 23 )
 nodes/state/position = Vector2( 800, 200 )
-node_connections = [ "state", 0, "alive_state", "state", 1, "Explode", "output", 0, "state", "alive_state", 0, "Idle", "alive_state", 1, "Bounce" ]
+node_connections = [ "state", 0, "alive_state", "state", 1, "Explode", "output", 0, "state", "attack_state", 0, "Bounce", "attack_state", 1, "Spawn", "alive_state", 0, "Idle", "alive_state", 1, "attack_state" ]
 
 [node name="Santa" type="KinematicBody2D"]
 collision_layer = 2
@@ -320,6 +334,7 @@ tree_root = SubResource( 12 )
 anim_player = NodePath("../AnimatedSprite/AnimationPlayer")
 active = true
 parameters/alive_state/current = 0
+parameters/attack_state/current = 0
 parameters/state/current = 0
 
 [node name="IntroSFX" type="AudioStreamPlayer2D" parent="."]

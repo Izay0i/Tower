@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Texture/map_screen.png" type="Texture" id=1]
 [ext_resource path="res://Texture/swamp.png" type="Texture" id=2]
@@ -6,6 +6,14 @@
 [ext_resource path="res://Texture/castle.png" type="Texture" id=4]
 [ext_resource path="res://Script/StageSelectScreen.gd" type="Script" id=5]
 [ext_resource path="res://Song/selection.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Texture/Sprite/Gift.png" type="Texture" id=7]
+[ext_resource path="res://Texture/20220114_214323.jpg" type="Texture" id=8]
+[ext_resource path="res://Texture/20190715_221138.jpg" type="Texture" id=9]
+[ext_resource path="res://Song/gymnopedie_loop.ogg" type="AudioStream" id=10]
+
+[sub_resource type="AnimatedTexture" id=1]
+resource_local_to_scene = true
+frame_0/texture = ExtResource( 7 )
 
 [node name="StageSelectScreen" type="Node2D"]
 script = ExtResource( 5 )
@@ -73,9 +81,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="PresentButton" type="Button" parent="."]
+margin_left = 144.0
+margin_top = 432.0
+margin_right = 188.0
+margin_bottom = 470.0
+icon = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 autoplay = true
+
+[node name="GymnopedieLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
 
 [node name="Background" type="ColorRect" parent="."]
 margin_left = 8.0
@@ -138,7 +159,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Ni" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 200.0
+margin_top = 304.0
+margin_right = 2427.0
+margin_bottom = 1974.0
+rect_scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Muop" type="TextureRect" parent="."]
+visible = false
+margin_left = 632.0
+margin_top = 208.0
+margin_right = 3319.0
+margin_bottom = 2223.0
+rect_rotation = 90.0
+rect_scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="SwampButton" to="." method="_on_SwampButton_pressed"]
 [connection signal="pressed" from="FactoryButton" to="." method="_on_FactoryButton_pressed"]
 [connection signal="pressed" from="CastleButton" to="." method="_on_CastleButton_pressed"]
 [connection signal="pressed" from="MenuButton" to="." method="_on_MenuButton_pressed"]
+[connection signal="pressed" from="PresentButton" to="." method="_on_PresentButton_pressed"]

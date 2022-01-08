@@ -14,14 +14,6 @@ shader = ExtResource( 7 )
 shader_param/flash_color = Color( 1, 1, 1, 1 )
 shader_param/flash_modifier = 0.0
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 64, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 64, 64, 64 )
-
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 64, 64 )
@@ -34,13 +26,16 @@ region = Rect2( 64, 0, 64, 64 )
 atlas = ExtResource( 1 )
 region = Rect2( 0, 128, 64, 64 )
 
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 64, 64, 64 )
+
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ SubResource( 5 ), SubResource( 6 ) ],
-"loop": true,
-"name": "Attack",
-"speed": 4.0
-}, {
 "frames": [ SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
 "name": "Idle",
@@ -50,6 +45,11 @@ animations = [ {
 "loop": false,
 "name": "Explode",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "Attack",
+"speed": 4.0
 } ]
 
 [sub_resource type="Animation" id=11]
@@ -350,6 +350,9 @@ one_shot = true
 
 [node name="IdleTimer" type="Timer" parent="."]
 wait_time = 4.0
+one_shot = true
+
+[node name="SpawnTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]

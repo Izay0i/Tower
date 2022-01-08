@@ -1,7 +1,9 @@
 extends KinematicBody2D
 
+const ELF = preload("res://Enemy/Elf.tscn")
 const WRENCH = preload("res://Projectile/Wrench.tscn")
 
+const MAX_ATTACK_STATE = 1
 const MAX_HEALTH = 36
 const MAX_SPEED = 64
 const SPEED = 64
@@ -28,6 +30,7 @@ var active = false
 var direction = -1
 var health = 0
 var velocity = Vector2.ZERO
+var attack_state = 0
 
 func get_class():
 	return "Santa"
@@ -73,8 +76,22 @@ func _physics_process(delta):
 
 func _handle_attack_state(delta):
 	if !attack_timer.is_stopped():
-		_bounce(delta)
-		_spawn_wrench()
+		match attack_state:
+			0:
+				_bounce(delta)
+				_spawn_wrench()
+			1:
+				_spawn_elf()
+
+func _spawn_elf():
+	if spawn_timer.is_stopped():
+		spawn_timer.start()
+		
+		var elf = ELF.instance()
+		get_parent().add_child(elf)
+		elf.get_parent().add_to_group("Enemies")
+		elf.global_position = enemy_spawn_position.global_position
+		elf.original_positon = elf.global_position
 
 func _spawn_wrench():
 	if spawn_timer.is_stopped():
@@ -88,6 +105,7 @@ func _spawn_wrench():
 func _handle_animation_state():
 	animation_tree.set("parameters/state/current", health <= 0)
 	animation_tree.set("parameters/alive_state/current", idle_timer.is_stopped())
+	animation_tree.set("parameters/attack_state/current", attack_state == 1)
 
 func _bounce(delta):
 	velocity.x += direction * SPEED * delta
@@ -102,6 +120,11 @@ func _on_IntroTimer_timeout():
 
 func _on_IdleTimer_timeout():
 	attack_timer.start()
+	
+	if attack_state < MAX_ATTACK_STATE:
+		attack_state += 1
+	else:
+		attack_state = 0
 
 func _on_AttackTimer_timeout():
 	idle_timer.start()

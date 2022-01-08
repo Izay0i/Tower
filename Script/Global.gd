@@ -36,6 +36,3 @@ func load_highscores():
 		castle_highscore = cfg_file.get_value("Highscores", "castle")
 	
 	print("Loading successful")
-
-func _ready():
-	load_highscores()

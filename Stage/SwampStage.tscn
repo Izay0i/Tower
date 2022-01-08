@@ -37,7 +37,7 @@ extents = Vector2( 16, 10 )
 extents = Vector2( 16, 10 )
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 16, 10 )
+extents = Vector2( 112, 136 )
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 10, 16 )
@@ -57,13 +57,13 @@ extents = Vector2( 16, 10 )
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 16, 10 )
 
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 16, 10 )
+
 [sub_resource type="ShaderMaterial" id=13]
 shader = ExtResource( 16 )
 shader_param/color = Vector3( 0, 1, 0 )
 shader_param/OCTAVES = 4
-
-[sub_resource type="RectangleShape2D" id=14]
-extents = Vector2( 16, 10 )
 
 [node name="SwampStage" type="Node2D"]
 script = ExtResource( 4 )
@@ -347,6 +347,7 @@ shape = SubResource( 5 )
 position = Vector2( 304, 952 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LimitChange/LimitBody3"]
+position = Vector2( 0, 128 )
 shape = SubResource( 6 )
 
 [node name="LimitBody4" type="Area2D" parent="LimitChange"]
@@ -385,6 +386,21 @@ position = Vector2( 1424, 2376 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LimitChange/LimitBody9"]
 shape = SubResource( 12 )
 
+[node name="TriggerBossArea" type="Area2D" parent="."]
+position = Vector2( 1424, 2680 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerBossArea"]
+shape = SubResource( 14 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 80, 144 )
+
+[node name="Fog" type="Sprite" parent="."]
+material = SubResource( 13 )
+position = Vector2( 816, 1472 )
+scale = Vector2( 51, 92 )
+texture = ExtResource( 14 )
+
 [node name="SwampLoop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
 autoplay = true
@@ -394,21 +410,6 @@ stream = ExtResource( 17 )
 
 [node name="Victory" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 19 )
-
-[node name="Fog" type="Sprite" parent="."]
-material = SubResource( 13 )
-position = Vector2( 816, 1472 )
-scale = Vector2( 51, 92 )
-texture = ExtResource( 14 )
-
-[node name="TriggerBossArea" type="Area2D" parent="."]
-position = Vector2( 1424, 2680 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerBossArea"]
-shape = SubResource( 14 )
-
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 80, 144 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -433,5 +434,5 @@ centered = false
 [connection signal="body_entered" from="LimitChange/LimitBody7" to="." method="_on_LimitBody7_body_entered"]
 [connection signal="body_entered" from="LimitChange/LimitBody8" to="." method="_on_LimitBody8_body_entered"]
 [connection signal="body_entered" from="LimitChange/LimitBody9" to="." method="_on_LimitBody9_body_entered"]
-[connection signal="finished" from="Victory" to="." method="_on_Victory_finished"]
 [connection signal="body_entered" from="TriggerBossArea" to="." method="_on_TriggerBossArea_body_entered"]
+[connection signal="finished" from="Victory" to="." method="_on_Victory_finished"]

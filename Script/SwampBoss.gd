@@ -6,11 +6,11 @@ const POSITION = Vector2(896, 1360)
 
 const ATTACK_DAMAGE = 3
 const MAX_HEALTH = 42
-const MAX_SPAWN_COUNT = 2
 
 onready var intro_timer = $IntroTimer
 onready var death_timer = $DeathTimer
 onready var idle_timer = $IdleTimer
+onready var spawn_timer = $SpawnTimer
 onready var attack_timer = $AttackTimer
 onready var invulnerable_timer = $InvulnerableTimer
 onready var pop_sfx = $PopSFX
@@ -28,7 +28,6 @@ var random_generator = RandomNumberGenerator.new()
 
 var active = false
 var health = 0
-var spawn_count = 0
 
 func get_class():
 	return "SwampBoss"
@@ -40,6 +39,8 @@ func take_damage(damage = 1):
 		invulnerable_timer.start()
 
 func _ready():
+	gas_sfx.volume_db = 10
+	
 	health = MAX_HEALTH
 	gas_hitbox.disabled = true
 
@@ -66,14 +67,14 @@ func _handle_animation_state():
 	animation_tree.set("parameters/alive_transition/current", !attack_timer.is_stopped())
 
 func _spawn_skeletons():
-	if spawn_count < MAX_SPAWN_COUNT:
-		spawn_count += 1
+	if spawn_timer.is_stopped():
+		spawn_timer.start()
 		
-		var min_range = -30
-		var max_range = 30
+		var min_range = -9
+		var max_range = 9
 		
 		random_generator.randomize()
-		var spawn_point = spawner.global_position.x + random_generator.randi_range(min_range, max_range)
+		var spawn_point = spawner.global_position.x + ((random_generator.randi_range(min_range, max_range) + 1) * 10)
 		var skeleton = SKELETON.instance()
 		get_parent().add_child(skeleton)
 		skeleton.get_parent().add_to_group("Enemies")
@@ -107,7 +108,6 @@ func _on_DeathTimer_timeout():
 	queue_free()
 
 func _on_IdleTimer_timeout():
-	spawn_count = 0
 	attack_timer.start()
 
 func _on_AttackTimer_timeout():
